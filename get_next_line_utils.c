@@ -6,39 +6,65 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:28 by rmaes             #+#    #+#             */
-/*   Updated: 2022/04/07 20:11:06 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:06:15 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+void	*ft_calloc(unsigned long count, unsigned long size)
 {
-	int	a;
+	char	*ret;
 
-	a = 0;
-	while (s[a])
-		a++;
-	return (a);
+	ret = malloc((count * size));
+	if (!ret)
+		return (0);
+	ft_bzero(ret, count * size);
+	return (ret);
 }
 
-size_t	lcat(char *dst, const char *src, size_t size)
+int	read_new(int fd, char *buf, int i)
 {
-	size_t	i;
-	size_t	len;
-
-	len = 0;
-	i = 0;
-	len = ft_strlen(dst);
-	while (src[i] && i + len + 1 < size)
+	if (!buf[i] || i >= BUFFER_SIZE)
 	{
-		dst[i + len] = src[i];
+		read(fd, buf, BUFFER_SIZE);
+		i = 0;
+	}
+	return (i);
+}
+
+void	*ft_bzero(void *e, size_t len)
+{
+	size_t	a;
+
+	a = 0;
+	while (a < len)
+	{
+		((char *)e)[a] = 0;
+		a++;
+	}
+	return (e);
+}
+
+char	*extend_malloc(char	*str, int size, int ext)
+{
+	char	*ret;
+	int		i;
+
+	i = 0;
+	if (size == 0)
+	{
+		ret = ft_calloc(sizeof(char), ext);
+		return (ret);
+	}
+	ret = ft_calloc(sizeof(char), (size + ext));
+	if (!ret)
+		return (NULL);
+	while (i < size)
+	{
+		ret[i] = str[i];
 		i++;
 	}
-	while (src[i])
-		i++;
-	if (size < len)
-		return (i + size);
-	else
-		return (len + i);
+	free(str);
+	return (ret);
 }
