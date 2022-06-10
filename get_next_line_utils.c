@@ -6,32 +6,11 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:28 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/10 16:06:15 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:13:38 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	*ft_calloc(unsigned long count, unsigned long size)
-{
-	char	*ret;
-
-	ret = malloc((count * size));
-	if (!ret)
-		return (0);
-	ft_bzero(ret, count * size);
-	return (ret);
-}
-
-int	read_new(int fd, char *buf, int i)
-{
-	if (!buf[i] || i >= BUFFER_SIZE)
-	{
-		read(fd, buf, BUFFER_SIZE);
-		i = 0;
-	}
-	return (i);
-}
 
 void	*ft_bzero(void *e, size_t len)
 {
@@ -44,6 +23,17 @@ void	*ft_bzero(void *e, size_t len)
 		a++;
 	}
 	return (e);
+}
+
+void	*ft_calloc(unsigned long count, unsigned long size)
+{
+	char	*ret;
+
+	ret = malloc((count * size));
+	if (!ret)
+		return (0);
+	ft_bzero(ret, count * size);
+	return (ret);
 }
 
 char	*extend_malloc(char	*str, int size, int ext)
@@ -67,4 +57,14 @@ char	*extend_malloc(char	*str, int size, int ext)
 	}
 	free(str);
 	return (ret);
+}
+
+int	read_new(int fd, char *buf, int i)
+{
+	if (!buf[i] || i >= BUFFER_SIZE)
+	{
+		read(fd, buf, BUFFER_SIZE);
+		i = 0;
+	}
+	return (i);
 }
