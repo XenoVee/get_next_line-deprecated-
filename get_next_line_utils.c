@@ -6,11 +6,21 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:28 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/13 18:40:59 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:56:32 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	ft_strlen(const char *s)
+{
+	int	a;
+
+	a = 0;
+	while (s[a])
+		a++;
+	return (a);
+}
 
 void	*ft_bzero(void *e, size_t len)
 {

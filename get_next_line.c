@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:58:02 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/13 18:37:03 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:56:03 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 			j++;
 			i++;
 		}
-		if ((buf[i] == '\n' || j == 0) && ret != NULL)
+		if ((buf[i] == '\n' || j == 0 || ft_strlen(buf) <= i) && ret != NULL)
 		{
 			ret[j] = buf[i];
 			i++;
