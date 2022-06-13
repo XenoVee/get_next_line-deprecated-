@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:57 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/13 17:07:21 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:36:26 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ char	*get_next_line(int fd);
 int		main(void);
 void	*ft_calloc(unsigned long count, unsigned long size);
 void	*ft_bzero(void *e, size_t len);
-int		read_new(int fd, char *buf, int i);
+int		read_new(int fd, char *buf, int i, char **ret);
 
 #endif
