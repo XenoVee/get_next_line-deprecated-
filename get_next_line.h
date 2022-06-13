@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:57 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/10 19:49:48 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/13 14:21:25 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-char	*extend_malloc(char	*str, int size, int ext);
+char	*extend_malloc(char	*str, int size, int ext, int fd);
 int		linelen(char *str);
 char	*get_next_line(int fd);
 int		main(void);

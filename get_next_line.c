@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:58:02 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/10 19:51:41 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/13 14:22:45 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ char	*get_next_line(int fd)
 	int				j;
 
 	j = 0;
-	while (i != -1)
+	while (i != -1 && ret != NULL)
 	{
 		i = read_new(fd, buf, i);
-		ret = extend_malloc(ret, j, BUFFER_SIZE);
-		while (buf[i] != '\n' && i < BUFFER_SIZE && buf[i] != '\0')
+		ret = extend_malloc(ret, j, BUFFER_SIZE, fd);
+		while (buf[i] != '\n' && i < BUFFER_SIZE && buf[i] != '\0' && ret != 0)
 		{
 			ret[j] = buf[i];
 			j++;
 			i++;
 		}
-		if (buf[i] == '\n')
+		if (buf[i] == '\n' && ret != NULL)
 		{
 			ret[j] = buf[i];
 			i++;
