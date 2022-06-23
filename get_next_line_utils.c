@@ -6,11 +6,12 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:28 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/13 20:14:01 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/06/23 15:46:22 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	ft_strlen(const char *s)
 {
@@ -41,7 +42,7 @@ void	*ft_calloc(unsigned long count, unsigned long size)
 
 	ret = malloc((count * size));
 	if (!ret)
-		return (0);
+		return (NULL);
 	ft_bzero(ret, count * size);
 	return (ret);
 }
@@ -60,11 +61,9 @@ char	*extend_malloc(char	*str, int size, int ext, int fd)
 		ret = ft_calloc(sizeof(char), ext);
 	else
 		ret = ft_calloc(sizeof(char), (size + ext));
-	if (!ret)
-		return (NULL);
-	if (size == 0)
+	if (size == 0 && ret)
 		return (ret);
-	while (i < size)
+	while (i < size && ret)
 	{
 		ret[i] = str[i];
 		i++;
