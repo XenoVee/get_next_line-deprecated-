@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:28 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/23 15:46:22 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/07/07 16:13:00 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ char	*extend_malloc(char	*str, int size, int ext, int fd)
 	i = 0;
 	if (fd < 0 || fd == 1 || fd == 2 || fd > 999 || str == NULL)
 	{
+		if (size != 0)
+			free(str);
 		return (NULL);
 	}
+	ret = ft_calloc(sizeof(char), (size + ext));
 	if (size == 0)
-		ret = ft_calloc(sizeof(char), ext);
-	else
-		ret = ft_calloc(sizeof(char), (size + ext));
-	if (size == 0 && ret)
 		return (ret);
 	while (i < size && ret)
 	{
