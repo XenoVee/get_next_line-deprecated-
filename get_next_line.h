@@ -6,14 +6,20 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:57 by rmaes             #+#    #+#             */
-/*   Updated: 2022/07/11 17:11:26 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/07/11 18:31:07 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# ifdef BUFFER_SIZE
+#  if BUFFER_SIZE < 1 || BUFFER_SIZE > 2147483646
+#   undef BUFFER_SIZE
+#   define BUFFER_SIZE 
+#  endif
+# endif
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 20
+#  define BUFFER_SIZE 5
 # endif
 
 # include <stdlib.h>
