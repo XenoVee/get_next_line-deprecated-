@@ -6,22 +6,11 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:28 by rmaes             #+#    #+#             */
-/*   Updated: 2022/07/07 16:47:33 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/07/11 17:21:13 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-
-int	ft_strlen(const char *s)
-{
-	int	a;
-
-	a = 0;
-	while (s[a])
-		a++;
-	return (a);
-}
 
 void	*ft_bzero(void *e, size_t len)
 {
@@ -40,7 +29,7 @@ void	*ft_calloc(unsigned long count, unsigned long size)
 {
 	char	*ret;
 
-	ret = malloc((count * size));
+	ret = malloc((count * size) + 1);
 	if (!ret)
 		return (NULL);
 	ft_bzero(ret, count * size);
@@ -53,15 +42,17 @@ char	*extend_malloc(char	*str, int size, int ext, int fd)
 	int		i;
 
 	i = 0;
-	if (fd < 0 || fd == 1 || fd == 2 || fd > 999 || str == NULL)
+	if (fd < 0 || fd == 1 || fd == 2 || fd > 999)
 	{
 		if (size != 0)
 			free(str);
 		return (NULL);
 	}
-	ret = ft_calloc(sizeof(char), (size + ext + 1));
+	ret = ft_calloc(sizeof(char), (size + ext));
 	if (size == 0)
+	{
 		return (ret);
+	}
 	while (i < size && ret)
 	{
 		ret[i] = str[i];
@@ -89,7 +80,7 @@ int	read_new(int fd, char *buf, int i, char **ret)
 			*ret = 0;
 			return (-1);
 		}
-		else if (rd == 0)
+		else if (rd <= 0)
 			return (-1);
 		i = 0;
 	}

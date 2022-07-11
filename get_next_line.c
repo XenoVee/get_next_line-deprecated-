@@ -6,37 +6,46 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:58:02 by rmaes             #+#    #+#             */
-/*   Updated: 2022/06/13 19:45:27 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/07/11 17:18:10 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+static char	*loop(char	*ret, char *buf, int fd, int *i)
 {
-	static char		buf[BUFFER_SIZE];
-	char			*ret;
-	static int		i = 0;
-	int				j;
+	int	j;
 
 	j = 0;
-	while ((i != -1 || j == 0) && ret != NULL)
-	{
-		i = read_new(fd, buf, i, &ret);
+	while ((*i != -1 || j == 0))
+	{	
+		*i = read_new(fd, buf, *i, &ret);
+		if (*i == -1 && ret == NULL)
+			return (NULL);
 		ret = extend_malloc(ret, j, BUFFER_SIZE, fd);
-		while (buf[i] != '\n' && i < BUFFER_SIZE && buf[i] != '\0' && ret != 0)
+		while (buf[*i] != '\n' && *i < BUFFER_SIZE && buf[*i] != '\0')
 		{
-			ret[j] = buf[i];
+			ret[j] = buf[*i];
 			j++;
-			i++;
+			(*i)++;
 		}
-		if (buf[i] == '\n' && ret != NULL)
+		if (buf[*i] == '\n')
 		{
-			ret[j] = buf[i];
-			i++;
+			ret[j] = buf[*i];
+			(*i)++;
 			ret[j + 1] = '\0';
 			return (ret);
 		}
 	}
 	return (ret);
+}
+
+char	*get_next_line(int fd)
+{
+	char		*str;
+	static char	buf[BUFFER_SIZE + 1];
+	static int	i = 0;
+
+	str = NULL;
+	return (loop(str, buf, fd, &i));
 }
