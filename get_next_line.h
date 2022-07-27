@@ -6,14 +6,14 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:57 by rmaes             #+#    #+#             */
-/*   Updated: 2022/07/13 20:13:09 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/07/27 17:33:04 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifdef BUFFER_SIZE
-#  if BUFFER_SIZE < 1 || BUFFER_SIZE > 9223372036854775806
+#  if BUFFER_SIZE < 1 || BUFFER_SIZE > 2147483646
 #   undef BUFFER_SIZE
 #  endif
 # endif
