@@ -6,11 +6,22 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:58:02 by rmaes             #+#    #+#             */
-/*   Updated: 2022/07/13 20:07:49 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/08/01 13:05:47 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static int	bufcopy(char *ret, char *buf, int *i, int j)
+{
+	while (buf[*i] != '\n' && *i < BUFFER_SIZE && buf[*i] != '\0')
+	{
+		ret[j] = buf[*i];
+		j++;
+		(*i)++;
+	}
+	return (j);
+}
 
 static char	*loop(char	*ret, char *buf, int fd, int *i)
 {
@@ -23,12 +34,9 @@ static char	*loop(char	*ret, char *buf, int fd, int *i)
 		if (*i == -1 && ret == NULL)
 			return (NULL);
 		ret = extend_malloc(ret, j, BUFFER_SIZE, fd);
-		while (buf[*i] != '\n' && *i < BUFFER_SIZE && buf[*i] != '\0')
-		{
-			ret[j] = buf[*i];
-			j++;
-			(*i)++;
-		}
+		if (ret == NULL)
+			return (NULL);
+		j = bufcopy(ret, buf, i, j);
 		if (buf[*i] == '\n')
 		{
 			ret[j] = buf[*i];
