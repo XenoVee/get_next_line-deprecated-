@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:58:02 by rmaes             #+#    #+#             */
-/*   Updated: 2022/08/02 20:28:04 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/08/02 20:32:50 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_next_line(int fd)
 	static char	buf[BUFFER_SIZE];
 	static int	i = 0;
 
-	if (fd < 0 || fd == 1 || fd == 2 || fd > OPEN_MAX)
+	if (fd < 0 || fd == 1 || fd == 2)
 		return (NULL);
 	str = NULL;
 	return (loop(str, buf, fd, &i));
