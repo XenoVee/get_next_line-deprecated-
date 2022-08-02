@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:58:02 by rmaes             #+#    #+#             */
-/*   Updated: 2022/08/01 13:05:47 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/08/02 20:10:21 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static char	*loop(char	*ret, char *buf, int fd, int *i)
 	j = 0;
 	while ((*i != -1 || j == 0))
 	{	
-		*i = read_new(fd, buf, *i, &ret);
+		*i = read_new(fd, buf, *i);
 		if (*i == -1 && ret == NULL)
 			return (NULL);
-		ret = extend_malloc(ret, j, BUFFER_SIZE, fd);
+		ret = extend_malloc(ret, j, BUFFER_SIZE);
 		if (ret == NULL)
 			return (NULL);
 		j = bufcopy(ret, buf, i, j);
@@ -51,9 +51,11 @@ static char	*loop(char	*ret, char *buf, int fd, int *i)
 char	*get_next_line(int fd)
 {
 	char		*str;
-	static char	buf[BUFFER_SIZE + 1];
+	static char	buf[BUFFER_SIZE];
 	static int	i = 0;
 
+	if (fd < 0 || fd == 1 || fd == 2 || fd > OPEN_MAX)
+		return (NULL);
 	str = NULL;
 	return (loop(str, buf, fd, &i));
 }

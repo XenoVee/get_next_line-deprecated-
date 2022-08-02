@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:57:28 by rmaes             #+#    #+#             */
-/*   Updated: 2022/08/01 13:05:18 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/08/02 20:09:45 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,15 @@ void	*ft_calloc(unsigned long count, unsigned long size)
 	return (ret);
 }
 
-char	*extend_malloc(char	*str, int size, int ext, int fd)
+char	*extend_malloc(char	*str, int size, int ext)
 {
 	char	*ret;
 	int		i;
 
 	i = 0;
-	if (fd < 0 || fd == 1 || fd == 2 || fd > 999)
-	{
-		if (size != 0)
-			free(str);
-		return (NULL);
-	}
 	ret = ft_calloc(sizeof(char), (size + ext));
 	if (size == 0)
-	{
 		return (ret);
-	}
 	while (i < size && ret)
 	{
 		ret[i] = str[i];
@@ -60,28 +52,18 @@ char	*extend_malloc(char	*str, int size, int ext, int fd)
 	}
 	free(str);
 	return (ret);
-	ext++;
 }
 
-int	read_new(int fd, char *buf, int i, char **ret)
+int	read_new(int fd, char *buf, int i)
 {
 	long int	rd;
-	int			fst;
 
-	if (!buf[0])
-		fst = 1;
-	else
-		fst = 0;
-	if (!buf[i] || i >= BUFFER_SIZE)
+	if (!buf[i])
 	{
 		rd = read(fd, buf, BUFFER_SIZE);
-		buf[rd] = '\0';
-		if (rd == 0 && fst == 1)
-		{
-			*ret = 0;
-			return (-1);
-		}
-		else if (rd <= 0)
+		if (rd > 0)
+			buf[rd] = '\0';
+		if (rd <= 0)
 			return (-1);
 		i = 0;
 	}
