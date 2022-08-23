@@ -6,7 +6,7 @@
 /*   By: rmaes <rmaes@student.codam.nl>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 19:58:02 by rmaes             #+#    #+#             */
-/*   Updated: 2022/08/02 20:32:50 by rmaes            ###   ########.fr       */
+/*   Updated: 2022/08/10 16:21:09 by rmaes            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*loop(char	*ret, char *buf, int fd, int *i)
 char	*get_next_line(int fd)
 {
 	char		*str;
-	static char	buf[BUFFER_SIZE];
+	static char	buf[BUFFER_SIZE + 1];
 	static int	i = 0;
 
 	if (fd < 0 || fd == 1 || fd == 2)
