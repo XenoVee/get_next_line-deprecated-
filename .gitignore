@@ -1,0 +1,10 @@
+a.out
+file
+main.c
+*.dSYM/
+*.o
+gnlTester/
+get_next_line.a
+Makefile
+test
+.vscode/
